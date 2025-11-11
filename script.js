@@ -68,7 +68,7 @@ function buildBarChart(year) {
     return rows.some(r => typeof r[k] === 'number');
   });
   const scoreKey = numericKeys.find(k => /rating|score|elo|points|value/i.test(k)) || numericKeys[0];
-s  const labels = rows.map(r => r.Driver || r.Name || r.driver || 'Unknown');
+  const labels = rows.map(r => r.Driver || r.Name || r.driver || 'Unknown');
   const values = rows.map(r => Number(r[scoreKey] || 0));
   if (barChart) barChart.destroy();
   barChart = new Chart(ctx, {
@@ -82,7 +82,7 @@ function buildLineChart() {
   const ctx = document.getElementById('lineChart').getContext('2d');
   if (lineChart) lineChart.destroy();
   lineChart = new Chart(ctx, {
-s    type: 'line',
+    type: 'line',
     data: { labels: years, datasets: [] },
     options: { responsive:true, maintainAspectRatio:false, scales:{ y:{ beginAtZero:false } } }
   });
@@ -97,7 +97,7 @@ function drawLineForDriver(driverName) {
     data: years.map(y => {
       // Use the safe Array.isArray check
       const row = (Array.isArray(dataByYear[y]) ? dataByYear[y] : []).find(r => (r.Driver||r.Name||r.driver) === driverName);
-s      return row ? Number(row[scoreKey] || 0) : null;
+      return row ? Number(row[scoreKey] || 0) : null;
     }),
     spanGaps: true
   };
@@ -121,12 +121,12 @@ function updateDashboard(year) {
   populateDriverSelect(year);
   buildTable(year);
   buildBarChart(year);
-s  // clear line chart's datasets
+  // clear line chart's datasets
   if (lineChart) { lineChart.data.datasets = []; lineChart.update(); }
 }
 
 document.addEventListener('DOMContentLoaded', async () => {
-  const data = await fetchData();
+s  const data = await fetchData();
   dataByYear = data;
   years = Object.keys(dataByYear).sort();
   populateYearSelect();
